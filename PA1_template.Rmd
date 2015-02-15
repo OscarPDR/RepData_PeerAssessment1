@@ -57,8 +57,6 @@ plot(steps_by_interval$interval, steps_by_interval$steps,
 steps_by_interval[steps_by_interval$steps==max(steps_by_interval$steps),]
 ```
 
-
-plot(steps_by_interval$interval, steps_by_interval$steps, type="l", )
 ## Imputing missing values
 
 
