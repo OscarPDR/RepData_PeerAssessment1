@@ -59,6 +59,38 @@ steps_by_interval[steps_by_interval$steps==max(steps_by_interval$steps),]
 
 ## Imputing missing values
 
+1. Calculate and report the total number of missing values in the dataset
 
+```{r}
+sum(is.na(activity_data$steps))
+```
+
+2. Create a new dataset that is equal to the original dataset but with the missing data filled in.
+
+```{r}
+steps_data <- data.frame(activity_data$steps)
+steps_data[is.na(steps_data),] <- ceiling(tapply(activity_data$steps, activity_data$interval, mean, na.rm=TRUE))
+filled_activity_data <- cbind(steps_data, activity_data[,2:3])
+```
+
+3. Make a histogram of the total number of steps taken each day.
+
+```{r second_histogram, fig.width=6, fig.height=4}
+filled_steps_by_date <- aggregate(activity_data.steps ~ date, filled_activity_data, sum)
+hist(filled_steps_by_date$activity_data.steps,
+     main="Histogram of steps taken per day",
+     xlab="Steps interval",
+     col="darkolivegreen1"
+)
+```
+
+4. Calculate and report the mean and median total number of steps taken per day.
+
+```{r}
+mean(filled_steps_by_date$activity_data.steps)
+median(filled_steps_by_date$activity_data.steps)
+```
+
+The **mean** and the **median** are quite similar in both cases (that is, with the original data and after the simple *NA* values removal step), so its impact can be considered low.
 
 ## Are there differences in activity patterns between weekdays and weekends?
