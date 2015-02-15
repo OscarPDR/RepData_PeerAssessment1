@@ -1,5 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: "Oscar Peña del Rio"
+email: "oscar.pdr@gmail.com"
 output: 
   html_document:
     keep_md: true
@@ -8,11 +10,32 @@ output:
 
 ## Loading and preprocessing the data
 
+Uses the unzip() function to extract the CSV file and loads it into **activity_data** dataframe.
 
+```{r}
+unzipped_file <- unzip("activity.zip")
+activity_data <- read.csv(unzipped_file)
+```
 
 ## What is mean total number of steps taken per day?
 
+1. Calculate the total number of steps taken per day, omitting *NA* values. Generate histogram with the values.
 
+```{r first_histogram, fig.width=6, fig.height=4}
+steps_by_date <- aggregate(steps ~ date, activity_data, sum, na.action = na.omit)
+hist(steps_by_date$steps,
+     main="Histogram of steps taken per day",
+     xlab="Steps interval",
+     col="darkolivegreen1"
+)
+```
+
+2. Calculate and report the mean and median of the total number of steps taken per day
+
+```{r}
+mean(steps_by_date$steps)
+median(steps_by_date$steps)
+```
 
 ## What is the average daily activity pattern?
 
